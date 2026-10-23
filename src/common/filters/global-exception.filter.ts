@@ -106,6 +106,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       ) {
         return (res as { error: string }).error;
       }
+      if (
+        exception.name === 'ThrottlerException' ||
+        status === HttpStatus.TOO_MANY_REQUESTS
+      ) {
+        return 'Too Many Requests';
+      }
       return exception.name.replace(/Exception$/, '') || 'Http Error';
     }
 

@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppConfig } from '@/config/app/app-config.service';
 import { getThrottlerConfig } from '@/config/loaders';
-import {
-  ThrottlerModule as NestThrottlerModule,
-  ThrottlerGuard,
-} from '@nestjs/throttler';
+import { ThrottlerModule as NestThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { CustomThrottlerGuard } from './custom-throttler.guard';
 
 @Module({
   imports: [
@@ -17,7 +15,7 @@ import { APP_GUARD } from '@nestjs/core';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard,
+      useClass: CustomThrottlerGuard,
     },
   ],
 })
